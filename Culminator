@@ -1,34 +1,20 @@
+# Shinwoo/Edward
+# June 1st, 2020
+# Culminating Assignment
+
 from tkinter import *
 import winsound
 
 
-def playnotec():
-    winsound.PlaySound("Recording_3.wav", winsound.SND_ASYNC)
-
-
-def playnoted():
-    winsound.PlaySound("Recording_5.wav", winsound.SND_ASYNC)
-
-
-def playnotee():
-    winsound.PlaySound("Recording_6.wav", winsound.SND_ASYNC)
-
-
 tk = Tk()
 
-canvas = Canvas(tk, width=800, height=500)
+canvas = Canvas(tk, width=800, height=600)
 canvas.pack()
 
+img = PhotoImage(file="concrete room.gif")
+concrete = Label(tk, image=img)
+concrete.place(x=0, y=0)
 
-lbl_poop = Label(tk, text="Piano", bg="white")
-lbl_poop.place(x=375, y=50)
-
-C = Button(tk, text="C", fg="green", bg="white", font=("Helvetica", 25), command=playnotec())
-C.place(x=300, y=200)
-D = Button(tk, text="D", fg="green", bg="white", font=("Helvetica", 25), command=playnoted())
-D.place(x=350, y=200)
-E = Button(tk, text="E", fg="green", bg="white", font=("Helvetica", 25), command=playnotee())
-E.place(x=400, y=200)
 
 
 tk.mainloop()
