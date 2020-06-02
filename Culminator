@@ -4,6 +4,35 @@
 
 from tkinter import *
 import winsound
+import time
+
+
+def delete(a, b, c):
+    a.place_forget()
+    b.place_forget()
+    c.place_forget()
+
+
+def start(a, b, c, d):
+    a.place_forget()
+    b.place_forget()
+    c.place_forget()
+    d.place_forget()
+
+    concrete.place(x=0, y=0)
+    tk.update()
+    time.sleep(1)
+
+    box.place(x=50, y=10)
+    d1 = Label(tk, font=("times", 12), text="""You wake up in an empty room. You don't remember how you got here. You look around and find that there
+    are no doors, windows or exits of any kind. All you know for now is that you need to find a way out.""", fg="white", bg="gray")
+    d1.place(x=65, y=20)
+
+    hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: delete(box, d1, hidetext))
+    hidetext.place(x=640, y=120)
+
+    # Story Begins
+
 
 
 tk = Tk()
@@ -11,10 +40,24 @@ tk = Tk()
 canvas = Canvas(tk, width=800, height=600)
 canvas.pack()
 
-img = PhotoImage(file="concrete room.gif")
-concrete = Label(tk, image=img)
-concrete.place(x=0, y=0)
 
+startroom = PhotoImage(file="concrete room.gif")
+concrete = Label(tk, image=startroom)
+
+tbox = PhotoImage(file="textbox.gif")
+box = Label(tk, image=tbox)
+
+mainmenu = PhotoImage(file="blackouttuesday.gif")
+mainbg = Label(tk, image=mainmenu)
+mainbg.place(x=0, y=0)
+
+cyoa = Label(tk, text="CYOA", font="comicsans", fg="red", bg="black")
+cyoa.place(x=80, y=40)
+gamename = Label(tk, font=("comicsans", 65), text="Memories", fg="yellow", bg="black")
+gamename.place(x=30, y=70)
+
+startbutton = Button(tk, text="Play", fg="yellow", bg="black", font=("comicsans", 25), command=lambda: start(startbutton, mainbg, cyoa, gamename))
+startbutton.place(x=350, y=350)
 
 
 tk.mainloop()
