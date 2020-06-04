@@ -11,6 +11,7 @@ def delete(a, b, c):
     a.place_forget()
     b.place_forget()
     c.place_forget()
+    return
 
 
 def start(a, b, c, d):
@@ -28,11 +29,60 @@ def start(a, b, c, d):
     are no doors, windows or exits of any kind. All you know for now is that you need to find a way out.""", fg="white", bg="gray")
     d1.place(x=65, y=20)
 
-    hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: delete(box, d1, hidetext))
+    hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: startroom(box, d1, hidetext))
     hidetext.place(x=640, y=120)
+    return
+
+
+def startroom(a, b, c):
+    a.place_forget()
+    b.place_forget()
+    c.place_forget()
 
     # Story Begins
+    stomp = Button(tk, text="Stomp", fg="white", bg="gray", font=("comicsans", 12), command=lambda: stomping(stomp, kickwall, wait))
+    stomp.place(x=100, y=300)
+    kickwall = Button(tk, text="Kick wall", fg="white", bg="gray", font=("comicsans", 12), command=lambda: kicking(stomp, kickwall, wait))
+    kickwall.place(x=400, y=300)
+    wait = Button(tk, text="Wait", fg="white", bg="gray", font=("comicsans", 12), command=lambda: waiting(stomp, kickwall, wait))
+    wait.place(x=700, y=300)
+    return
 
+
+def stomping(a, b, c):
+    a.place_forget()
+    b.place_forget()
+    c.place_forget()
+
+    box.place(x=50, y=10)
+    nothinghappens = Label(tk, text="You stomp down on the floor with all your weight. You feel heavy force on your feet, yet nothing happens.", fg="white", bg="gray", font=("times", 12))
+    nothinghappens.place(x=65, y=20)
+
+    back = Button(tk, text="Go Back", fg="black", bg="white", font=("comicsans", 12), command=lambda: delete(box, nothinghappens, back))
+    back.place(x=640, y=120)
+    return
+
+
+def kicking(a, b, c):
+    a.place_forget()
+    b.place_forget()
+    c.place_forget()
+
+
+def waiting(a, b, c):
+    a.place_forget()
+    b.place_forget()
+    c.place_forget()
+
+
+def hall():
+
+    stomp = Button(tk, text="Stomp", fg="white", bg="gray", font=("comicsans", 12), command=lambda: stomping(stomp, kickwall, wait))
+    stomp.place(x=100, y=300)
+    kickwall = Button(tk, text="Kick wall", fg="white", bg="gray", font=("comicsans", 12), command=lambda: kicking(stomp, kickwall, wait))
+    kickwall.place(x=400, y=300)
+    wait = Button(tk, text="Wait", fg="white", bg="gray", font=("comicsans", 12), command=lambda: waiting(stomp, kickwall, wait))
+    wait.place(x=700, y=300)
 
 
 tk = Tk()
@@ -40,13 +90,15 @@ tk = Tk()
 canvas = Canvas(tk, width=800, height=600)
 canvas.pack()
 
-
-startroom = PhotoImage(file="concrete room.gif")
-concrete = Label(tk, image=startroom)
+# images
+concreteroom = PhotoImage(file="concrete room.gif")
+concrete = Label(tk, image=concreteroom)
 
 tbox = PhotoImage(file="textbox.gif")
 box = Label(tk, image=tbox)
 
+
+# Start Menu
 mainmenu = PhotoImage(file="blackouttuesday.gif")
 mainbg = Label(tk, image=mainmenu)
 mainbg.place(x=0, y=0)
