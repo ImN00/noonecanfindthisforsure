@@ -6,110 +6,709 @@ from tkinter import *
 import winsound
 import time
 
+inventory = []
+item = []
+textpopup = 0
+textpopup1 = 0
+textpopup2 = 0
+textpopup3 = 0
+textpopup4 = 0
+pop = 0
+pop1 = 0
+p = 0
+
+
+def hint1(a):
+    print("trying:", repr(a.char))
+
+    guess = a.char
+    guess = guess.lower()
+
+    if "shoes" not in inventory:
+        if guess == "s":
+            inventory.append("shoes")
+            print(inventory)
+
+            bbox.place(x=50, y=100)
+
+            aq = Label(tk, text="Hint Acquired: Shoes", fg="red", bg="black", font=("times", 22))
+            aq.place(x=65, y=110)
+
+            shoe.place(x=190, y=150)
+
+            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: [delete(bbox, aq, back), shoe.place_forget()])
+            back.place(x=640, y=400)
+
+        else:
+            print("")
+    else:
+        print("Hint in this room is already obtained")
+        return
+
+
+def hint2(a):
+    print("trying:", repr(a.char))
+
+    guess = a.char
+
+    if "mum's letter" not in inventory:
+        if guess == "l":
+            inventory.append("mum's letter")
+            print(inventory)
+
+            bbox.place(x=50, y=100)
+
+            aq = Label(tk, text="Hint Acquired: Mum's Letter", fg="red", bg="black", font=("times", 22))
+            aq.place(x=65, y=110)
+
+            mlet.place(x=280, y=150)
+
+            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: [delete(bbox, aq, back), mlet.place_forget()])
+            back.place(x=640, y=400)
+
+        else:
+            print("")
+    else:
+        print("Hint in this room is already obtained")
+        return
+
+
+def hint3(a):
+    print("trying:", repr(a.char))
+
+    guess = a.char
+
+    if "dad's letter" not in inventory:
+        if guess == "l":
+            inventory.append("dad's letter")
+            print(inventory)
+
+            bbox.place(x=50, y=100)
+
+            aq = Label(tk, text="Hint Acquired: Dad's Letter", fg="red", bg="black", font=("times", 22))
+            aq.place(x=65, y=110)
+
+            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: delete(bbox, aq, back))
+            back.place(x=640, y=400)
+
+        else:
+            print("")
+    else:
+        print("Hint in this room is already obtained")
+        return
+
+
+def hint4(a):
+    print("trying:", repr(a.char))
+
+    guess = a.char
+
+    if "mugshot" not in inventory:
+        if guess == "m":
+            inventory.append("mugshot")
+            print(inventory)
+
+            piano.place_forget()
+            leave.place_forget()
+
+            bbox.place(x=50, y=100)
+
+            aq = Label(tk, text="Hint Acquired: Mugshot", fg="red", bg="black", font=("times", 22))
+            aq.place(x=65, y=110)
+
+            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: [delete(bbox, aq, back), piano.place(x=380, y=290)])
+            back.place(x=640, y=400)
+
+        else:
+            print("")
+    else:
+        print("Hint in this room is already obtained")
+        return
+
+
+def hint5(a):
+    print("trying:", repr(a.char))
+
+    guess = a.char
+
+    if "hospital bill" not in inventory:
+        if guess == "h":
+            inventory.append("hospital bill")
+            print(inventory)
+
+            bbox.place(x=50, y=100)
+
+            aq = Label(tk, text="Hint Acquired: Hospital Bill", fg="red", bg="black", font=("times", 22))
+            aq.place(x=65, y=110)
+
+            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: delete(bbox, aq, back))
+            back.place(x=640, y=400)
+
+        else:
+            print("")
+    else:
+        print("Hint in this room is already obtained")
+        return
+
+
+def test(a):
+    print(repr(a.char))
+
 
 def delete(a, b, c):
     a.place_forget()
     b.place_forget()
     c.place_forget()
-    return
 
 
-def start(a, b, c, d):
+def instruction():
+    instructionbox.place(x=50, y=100)
+
+    d1 = Label(tk, font=("comicsans", 12), text="""Welcome to our Choose Your Own Adventure Game. In this game, there is a hint in each of
+    the 5 separate rooms. To obtain the hint, you must find the visible hint in the room and
+    press the first letter of the name of the hint you think using your keyboard.
+    (The beginning concrete room will not have a hint.)
+    
+    
+    Ex. You think the hint is "Ball", you press "b" on your keyboard.
+    
+    
+    If your guess is right, a text box will appear, saying you that you have obtained the hint. If
+    it isn't correct, nothing will happen. If you would like, you can use the console box on
+    pycharm to further assist you with your hint guesses.
+    
+    
+    Depending on the amount of hints you find, your endings will be different.
+    
+    
+    Good luck and Have fun.""",
+               fg="black", bg="yellow")
+    d1.place(x=65, y=110)
+
+    back = Button(tk, text="Hide", fg="white", bg="black", font=("comicsans", 12), command=lambda: delete(instructionbox, d1, back))
+    back.place(x=640, y=400)
+
+
+def start(a, b, c, d, e):
     a.place_forget()
     b.place_forget()
     c.place_forget()
     d.place_forget()
+    e.place_forget()
 
     concrete.place(x=0, y=0)
     tk.update()
-    time.sleep(1)
+    time.sleep(0.7)
 
     box.place(x=50, y=10)
     d1 = Label(tk, font=("times", 12), text="""You wake up in an empty room. You don't remember how you got here. You look around and find that there
     are no doors, windows or exits of any kind. All you know for now is that you need to find a way out.""", fg="white", bg="gray")
     d1.place(x=65, y=20)
 
-    hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: startroom(box, d1, hidetext))
+    hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d1, hidetext), startroom()])
     hidetext.place(x=640, y=120)
-    return
 
 
-def startroom(a, b, c):
-    a.place_forget()
-    b.place_forget()
-    c.place_forget()
-
-    # Story Begins
-    stomp = Button(tk, text="Stomp", fg="white", bg="gray", font=("comicsans", 12), command=lambda: stomping(stomp, kickwall, wait))
+def startroom():
+    stomp = Button(tk, text="Stomp", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(stomp, kickwall, wait), stomping()])
     stomp.place(x=100, y=300)
-    kickwall = Button(tk, text="Kick wall", fg="white", bg="gray", font=("comicsans", 12), command=lambda: kicking(stomp, kickwall, wait))
+    kickwall = Button(tk, text="Kick wall", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(stomp, kickwall, wait), kicking()])
     kickwall.place(x=400, y=300)
-    wait = Button(tk, text="Wait", fg="white", bg="gray", font=("comicsans", 12), command=lambda: waiting(stomp, kickwall, wait))
+    wait = Button(tk, text="Wait", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(stomp, kickwall, wait), waiting()])
     wait.place(x=700, y=300)
-    return
 
 
-def stomping(a, b, c):
-    a.place_forget()
-    b.place_forget()
-    c.place_forget()
-
+def stomping():
     box.place(x=50, y=10)
-    nothinghappens = Label(tk, text="You stomp down on the floor with all your weight. You feel heavy force on your feet, yet nothing happens.", fg="white", bg="gray", font=("times", 12))
-    nothinghappens.place(x=65, y=20)
+    nothing = Label(tk, text="You stomp down on the floor with all your weight. You feel a heavy force on your feet, but nothing happens.", fg="white", bg="gray", font=("times", 12))
+    nothing.place(x=65, y=20)
 
-    back = Button(tk, text="Go Back", fg="black", bg="white", font=("comicsans", 12), command=lambda: delete(box, nothinghappens, back))
+    back = Button(tk, text="Go Back", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, nothing, back), startroom()])
     back.place(x=640, y=120)
-    return
 
 
-def kicking(a, b, c):
-    a.place_forget()
-    b.place_forget()
-    c.place_forget()
+def kicking():
+    box.place(x=50, y=10)
+    happens = Label(tk, text="""You furiously bang on the walls of the room with your fist, and suddenly, you feel a wall that seems more hollow
+    than others. You kick the wall with all your might. Bang! The thin concrete wall shatters into pieces, leaving an
+    exit perfect size for you to fit through. You carefully leave the empty concrete room.""", fg="white", bg="gray", font=("times", 12))
+    happens.place(x=65, y=20)
+
+    onwards = Button(tk, text="Continue", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, happens, onwards), crack.place_forget(), crack.place_forget(), hall()])
+    onwards.place(x=640, y=120)
+
+    concrete.place_forget()
+    crack.place(x=0, y=0)
 
 
-def waiting(a, b, c):
-    a.place_forget()
-    b.place_forget()
-    c.place_forget()
+def waiting():
+    box.place(x=50, y=10)
+    nothing = Label(tk, text="""You decide to wait for a while. You feel like something should happen. Someone should start talking to you or
+    visit you by now if you were kidnapped. As you wait longer, more thoughts fill your head and intensify your
+    headache. You shake off the thoughts and continue to wait longer, yet nothing happens.""", fg="white", bg="gray", font=("times", 12))
+    nothing.place(x=65, y=20)
+
+    back = Button(tk, text="Go Back", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, nothing, back), startroom()])
+    back.place(x=640, y=120)
 
 
 def hall():
+    hallwaytop.place(x=0, y=0)
 
-    stomp = Button(tk, text="Stomp", fg="white", bg="gray", font=("comicsans", 12), command=lambda: stomping(stomp, kickwall, wait))
-    stomp.place(x=100, y=300)
-    kickwall = Button(tk, text="Kick wall", fg="white", bg="gray", font=("comicsans", 12), command=lambda: kicking(stomp, kickwall, wait))
-    kickwall.place(x=400, y=300)
-    wait = Button(tk, text="Wait", fg="white", bg="gray", font=("comicsans", 12), command=lambda: waiting(stomp, kickwall, wait))
-    wait.place(x=700, y=300)
+    tk.update()
+    time.sleep(0.7)
+
+    box.place(x=50, y=10)
+    d2 = Label(tk, font=("times", 12), text="""Outside of the room is an empty hallway that seems to be abandoned for quite a while.""", fg="white", bg="gray")
+    d2.place(x=65, y=20)
+
+    hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d2, hidetext), hallgo()])
+    hidetext.place(x=640, y=120)
+
+
+def hallgo():
+    global roomfof
+    global down1
+
+    canvas.bind("<Key>", test)
+
+    hallwaytop.place_forget()
+    hallwaytop.place(x=0, y=0)
+
+    roomfof = Button(tk, text="Room 404", fg="white", bg="gray", font=("courier", 12), command=lambda: room404(hallwaytop, roomfof, down1))
+    roomfof.place(x=380, y=270)
+
+    down1 = Button(tk, text="Go down", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(hallwaytop, roomfof, down1), hall2()])
+    down1.place(x=560, y=270)
+
+
+def room404(a, b, c):
+    global textpopup
+    global item
+    global roomfof
+    global down1
+
+    if "key" in item:
+
+        delete(a, b, c)
+
+        roomtop.place(x=0, y=0)
+
+        if textpopup == 0:
+            textpopup = textpopup + 1
+
+            box.place(x=50, y=10)
+
+            d3 = Label(tk, font=("times", 12),
+                       text="""You enter room 404. It's a room with a gigantic hole. You can see the ground floor through the hole.""",
+                       fg="white", bg="gray")
+            d3.place(x=65, y=20)
+
+            hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d3, hidetext), room404interact()])
+            hidetext.place(x=640, y=120)
+
+        else:
+            room404interact()
+
+    else:
+        roomfof.place_forget()
+        down1.place_forget()
+
+        box.place(x=50, y=10)
+
+        locked = Label(tk, text="It's locked.", font=("times", 12), fg="white", bg="gray")
+        locked.place(x=65, y=20)
+
+        tk.update()
+        time.sleep(1.5)
+
+        box.place_forget()
+        locked.place_forget()
+
+        hallgo()
+
+
+def room404interact():
+    canvas.bind("<Key>", hint1)
+
+    outtohall1 = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [roomtop.place_forget(), outtohall1.place_forget(), hallgo()])
+    outtohall1.place(x=680, y=490)
+
+
+def hall2():
+    global pop
+    hallwaysectop.place(x=0, y=0)
+
+    if pop == 0:
+        pop = pop + 1
+
+        tk.update()
+        time.sleep(0.7)
+
+        box.place(x=50, y=10)
+        d1 = Label(tk, font=("times", 12), text="""You go downstairs and arrive at an equally unsettling hallway as before. To each of your sides, you notice there
+        are two different rooms labelled room 302 and room 305. A horrible chill goes down your spine.""", fg="white", bg="gray")
+        d1.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d1, hidetext), hall2go()])
+        hidetext.place(x=640, y=120)
+
+    else:
+        hall2go()
+
+
+def hall2go():
+    canvas.bind("<Key>", test)
+
+    hallwaysectop.place_forget()
+    hallwaysectop.place(x=0, y=0)
+
+    room1 = Button(tk, text="Room 302", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(hallwaysectop, room1, room2), down.place_forget(), up.place_forget(), room302()])
+    room1.place(x=200, y=170)
+
+    room2 = Button(tk, text="Room 305", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(hallwaysectop, room1, room2), down.place_forget(), up.place_forget(), room305()])
+    room2.place(x=540, y=170)
+
+    down = Button(tk, text="Go down", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(hallwaysectop, room1, room2), down.place_forget(), up.place_forget(), hall3()])
+    down.place(x=370, y=270)
+
+    up = Button(tk, text="Go upstairs", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(hallwaysectop, room1, room2), down.place_forget(), up.place_forget(), hallgo()])
+    up.place(x=360, y=550)
+
+
+def room302():
+    global textpopup1
+    roomsectop.place(x=0, y=0)
+
+    if textpopup1 == 0:
+        textpopup1 = textpopup1 + 1
+
+        box.place(x=50, y=10)
+
+        d3 = Label(tk, font=("times", 12),
+                   text="""You enter room 302.aaaaaaaaaaaaaaaaaaaaaa""",
+                   fg="white", bg="gray")
+        d3.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d3, hidetext), room302interact()])
+        hidetext.place(x=640, y=120)
+
+    else:
+        room302interact()
+
+
+def room302interact():
+    canvas.bind("<Key>", hint2)
+
+    outtohall = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [roomsectop.place_forget(), outtohall.place_forget(), hall2go()])
+    outtohall.place(x=680, y=490)
+
+
+def room305():
+    global textpopup2
+    sroomsectop.place(x=0, y=0)
+
+    if textpopup2 == 0:
+        textpopup2 = textpopup2 + 1
+
+        box.place(x=50, y=10)
+
+        d3 = Label(tk, font=("times", 12),
+                   text="""You enter room 305.;;;;;;;;;;;;;;;;;;;;;;;;""",
+                   fg="white", bg="gray")
+        d3.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12),
+                          command=lambda: [delete(box, d3, hidetext), room305interact()])
+        hidetext.place(x=640, y=120)
+
+    else:
+        room305interact()
+
+
+def room305interact():
+    canvas.bind("<Key>", hint3)
+
+    outtohall = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [sroomsectop.place_forget(), outtohall.place_forget(), hall2go()])
+    outtohall.place(x=680, y=490)
+
+
+def hall3():
+    global pop1
+    hallwaysec.place(x=0, y=0)
+
+    if pop1 == 0:
+        pop1 = pop1 + 1
+
+        tk.update()
+        time.sleep(0.7)
+
+        box.place(x=50, y=10)
+        d1 = Label(tk, font=("times", 12), text="""Next floor greets you with a fairly bright sunlight shining into the hallway.""", fg="white", bg="gray")
+        d1.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d1, hidetext), hall3go()])
+        hidetext.place(x=640, y=120)
+
+    else:
+        hall3go()
+
+
+def hall3go():
+    canvas.bind("<Key>", test)
+
+    hallwaysec.place_forget()
+    hallwaysec.place(x=0, y=0)
+
+    room1 = Button(tk, text="Room 201", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(hallwaysec, room1, room2), down.place_forget(), up.place_forget(), room201()])
+    room1.place(x=200, y=170)
+
+    room2 = Button(tk, text="Room 202", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(hallwaysec, room1, room2), down.place_forget(), up.place_forget(), room202()])
+    room2.place(x=540, y=170)
+
+    down = Button(tk, text="Go down", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(hallwaysec, room1, room2), down.place_forget(), up.place_forget(), lobby()])
+    down.place(x=370, y=270)
+
+    up = Button(tk, text="Go upstairs", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(hallwaysec, room1, room2), down.place_forget(), up.place_forget(), hall2go()])
+    up.place(x=360, y=550)
+
+
+def room201():
+    global textpopup3
+    roomsec.place(x=0, y=0)
+
+    canvas.bind("<Key>", test)
+
+    if textpopup3 == 0:
+        textpopup3 = textpopup3 + 1
+
+        box.place(x=50, y=10)
+
+        d3 = Label(tk, font=("times", 12),
+                   text="""You enter room 201.mmmmmmmmmmmm""",
+                   fg="white", bg="gray")
+        d3.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12),
+                          command=lambda: [delete(box, d3, hidetext), room201interact()])
+        hidetext.place(x=640, y=120)
+
+    else:
+        room201interact()
+
+
+def room201interact():
+    global piano
+
+    canvas.bind("<Key>", hint4)
+
+    piano = Button(tk, text="Piano", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(roomsec, outtohall, piano), pianotimehavefun()])
+    piano.place(x=380, y=290)
+
+    outtohall = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(roomsec, outtohall, piano), hall3go()])
+    outtohall.place(x=680, y=490)
+
+
+def room202():
+    global textpopup4
+    sroomsec.place(x=0, y=0)
+
+    if textpopup4 == 0:
+        textpopup4 = textpopup4 + 1
+
+        box.place(x=50, y=10)
+
+        d3 = Label(tk, font=("times", 12),
+                   text="""You enter room 202.sssssssssssssssss""",
+                   fg="white", bg="gray")
+        d3.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12),
+                          command=lambda: [delete(box, d3, hidetext), room202interact()])
+        hidetext.place(x=640, y=120)
+
+    else:
+        room202interact()
+
+
+def room202interact():
+    canvas.bind("<Key>", hint5)
+
+    outtohall = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(sroomsec, outtohall, check), hall3go()])
+    outtohall.place(x=680, y=490)
+
+    check = Button(tk, text="Check", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [outtohall.place_forget(), check.place_forget(), keycheck()])
+    check.place(x=690, y=300)
+
+
+def keycheck():
+    global p
+    global item
+
+    if p == 0:
+        p = p + 1
+
+        item.append("key")
+
+        box.place(x=50, y=10)
+
+        d3 = Label(tk, font=("times", 12),
+                   text="""You check in the sink and find something stuck inside the drain. You pull it out with strong force and see that it's
+                a key for a certain room. You put it in your pocket in case you need it.""",
+                   fg="white", bg="gray")
+        d3.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12),
+                          command=lambda: [delete(box, d3, hidetext), room202interact()])
+        hidetext.place(x=640, y=120)
+
+    else:
+        box.place(x=50, y=10)
+
+        d3 = Label(tk, font=("times", 12),
+                   text="""It's an old sink.""",
+                   fg="white", bg="gray")
+        d3.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12),
+                          command=lambda: [delete(box, d3, hidetext), room202interact()])
+        hidetext.place(x=640, y=120)
+
+
+def pianotimehavefun():
+    global leave
+
+    canvas.bind("<Key>", test)
+
+    pino.place(x=0, y=0)
+
+    c = Button(tk, text="C", fg="black", bg="white", font=("comicsans", 45), command=playnotec)
+    c.place(x=50, y=450)
+    d = Button(tk, text="D", fg="black", bg="white", font=("comicsans", 45), command=playnoted)
+    d.place(x=155, y=450)
+    e = Button(tk, text="E", fg="black", bg="white", font=("comicsans", 45), command=playnotee)
+    e.place(x=262, y=450)
+    f = Button(tk, text="F", fg="black", bg="white", font=("comicsans", 45), command=playnotef)
+    f.place(x=370, y=450)
+    g = Button(tk, text="G", fg="black", bg="white", font=("comicsans", 45), command=playnoteg)
+    g.place(x=471, y=450)
+    a = Button(tk, text="A", fg="black", bg="white", font=("comicsans", 45), command=playnotea)
+    a.place(x=581, y=450)
+    b = Button(tk, text="B", fg="black", bg="white", font=("comicsans", 45), command=playnoteb)
+    b.place(x=688, y=450)
+
+    leave = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(c, d, e), delete(f, g, a), delete(b, pino, leave), room201()])
+    leave.place(x=680, y=100)
+
+
+def playnotec():
+    winsound.PlaySound("C.wav", winsound.SND_ASYNC)
+
+
+def playnoted():
+    winsound.PlaySound("D.wav", winsound.SND_ASYNC)
+
+
+def playnotee():
+    winsound.PlaySound("E.wav", winsound.SND_ASYNC)
+
+
+def playnotef():
+    winsound.PlaySound("F.wav", winsound.SND_ASYNC)
+
+
+def playnoteg():
+    winsound.PlaySound("G.wav", winsound.SND_ASYNC)
+
+
+def playnotea():
+    winsound.PlaySound("A.wav", winsound.SND_ASYNC)
+
+
+def playnoteb():
+    winsound.PlaySound("B.wav", winsound.SND_ASYNC)
+
+
+def lobby():
+    lobbyimg.place(x=0, y=0)
 
 
 tk = Tk()
 
 canvas = Canvas(tk, width=800, height=600)
-canvas.pack()
 
 # images
-concreteroom = PhotoImage(file="concrete room.gif")
-concrete = Label(tk, image=concreteroom)
+concrete1 = PhotoImage(file="concrete room.gif")
+concrete = Label(tk, image=concrete1)
 
-tbox = PhotoImage(file="textbox.gif")
-box = Label(tk, image=tbox)
+crack1 = PhotoImage(file="crack.gif")
+crack = Label(tk, image=crack1)
 
+hallwaytop1 = PhotoImage(file="hall1.gif")
+hallwaytop = Label(tk, image=hallwaytop1)
 
-# Start Menu
+roomtop1 = PhotoImage(file="fall.gif")
+roomtop = Label(tk, image=roomtop1)
+
+hallwaysectop1 = PhotoImage(file="hall2.gif")
+hallwaysectop = Label(tk, image=hallwaysectop1)
+
+roomsectop1 = PhotoImage(file="room2.gif")
+roomsectop = Label(tk, image=roomsectop1)
+
+sroomsectop1 = PhotoImage(file="room3.gif")
+sroomsectop = Label(tk, image=sroomsectop1)
+
+hallwaysec1 = PhotoImage(file="hall3.gif")
+hallwaysec = Label(tk, image=hallwaysec1)
+
+roomsec1 = PhotoImage(file="piano1.gif")
+roomsec = Label(tk, image=roomsec1)
+
+sroomsec1 = PhotoImage(file="room4.gif")
+sroomsec = Label(tk, image=sroomsec1)
+
+lobby1 = PhotoImage(file="")
+lobbyimg = Label(tk, image=lobby1)
+
+pino1 = PhotoImage(file="piano.gif")
+pino = Label(tk, image=pino1)
+
+box1 = PhotoImage(file="textbox.gif")
+box = Label(tk, image=box1)
+
+bbox1 = PhotoImage(file="black.gif")
+bbox = Label(tk, image=bbox1)
+
+shoe1 = PhotoImage(file="shoe.gif")
+shoe = Label(tk, image=shoe1)
+
+mlet1 = PhotoImage(file="mumletter.gif")
+mlet = Label(tk, image=mlet1)
+
+canvas.focus_set()
+
 mainmenu = PhotoImage(file="blackouttuesday.gif")
 mainbg = Label(tk, image=mainmenu)
 mainbg.place(x=0, y=0)
 
 cyoa = Label(tk, text="CYOA", font="comicsans", fg="red", bg="black")
 cyoa.place(x=80, y=40)
+
 gamename = Label(tk, font=("comicsans", 65), text="Memories", fg="yellow", bg="black")
 gamename.place(x=30, y=70)
 
-startbutton = Button(tk, text="Play", fg="yellow", bg="black", font=("comicsans", 25), command=lambda: start(startbutton, mainbg, cyoa, gamename))
+startbutton = Button(tk, text="Play", fg="yellow", bg="black", font=("comicsans", 25), command=lambda: start(startbutton, mainbg, cyoa, gamename, instructionbutton))
 startbutton.place(x=350, y=350)
 
+instructionbutton = Button(tk, text="Instruction", fg="yellow", bg="black", font=("comicsans", 17), command=lambda: instruction())
+instructionbutton.place(x=341.5, y=430)
 
+instructionbox1 = PhotoImage(file="yellow.gif")
+instructionbox = Label(tk, image=instructionbox1)
+
+canvas.bind("<Key>", test)
+
+
+canvas.pack()
 tk.mainloop()
