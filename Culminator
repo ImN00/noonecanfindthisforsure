@@ -15,7 +15,10 @@ textpopup3 = 0
 textpopup4 = 0
 pop = 0
 pop1 = 0
+pop2 = 0
 p = 0
+p1 = 0
+p2 = 0
 
 
 def hint1(a):
@@ -80,6 +83,9 @@ def hint3(a):
 
     if "dad's letter" not in inventory:
         if guess == "l":
+
+            check.place_forget()
+
             inventory.append("dad's letter")
             print(inventory)
 
@@ -88,7 +94,9 @@ def hint3(a):
             aq = Label(tk, text="Hint Acquired: Dad's Letter", fg="red", bg="black", font=("times", 22))
             aq.place(x=65, y=110)
 
-            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: delete(bbox, aq, back))
+            dlet.place(x=280, y=150)
+
+            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: [delete(bbox, aq, back), dlet.place_forget(), check.place(x=370, y=450)])
             back.place(x=640, y=400)
 
         else:
@@ -103,20 +111,21 @@ def hint4(a):
 
     guess = a.char
 
-    if "mugshot" not in inventory:
-        if guess == "m":
-            inventory.append("mugshot")
+    if "handcuff" not in inventory:
+        if guess == "h":
+            inventory.append("handcuff")
             print(inventory)
 
             piano.place_forget()
-            leave.place_forget()
 
             bbox.place(x=50, y=100)
 
-            aq = Label(tk, text="Hint Acquired: Mugshot", fg="red", bg="black", font=("times", 22))
+            aq = Label(tk, text="Hint Acquired: Handcuff", fg="red", bg="black", font=("times", 22))
             aq.place(x=65, y=110)
 
-            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: [delete(bbox, aq, back), piano.place(x=380, y=290)])
+            cuff.place(x=220, y=150)
+
+            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: [delete(bbox, aq, back), cuff.place_forget(), piano.place(x=380, y=290)])
             back.place(x=640, y=400)
 
         else:
@@ -133,6 +142,9 @@ def hint5(a):
 
     if "hospital bill" not in inventory:
         if guess == "h":
+
+            check1.place_forget()
+
             inventory.append("hospital bill")
             print(inventory)
 
@@ -141,7 +153,9 @@ def hint5(a):
             aq = Label(tk, text="Hint Acquired: Hospital Bill", fg="red", bg="black", font=("times", 22))
             aq.place(x=65, y=110)
 
-            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: delete(bbox, aq, back))
+            bill.place(x=270, y=150)
+
+            back = Button(tk, text="Close", fg="yellow", bg="black", font=("comicsans", 12), command=lambda: [delete(bbox, aq, back), bill.place_forget(), check1.place(x=690, y=300)])
             back.place(x=640, y=400)
 
         else:
@@ -385,8 +399,9 @@ def room302():
 
         box.place(x=50, y=10)
 
-        d3 = Label(tk, font=("times", 12),
-                   text="""You enter room 302.aaaaaaaaaaaaaaaaaaaaaa""",
+        d3 = Label(tk, font=("times", 12), text="""You enter room 302. It looks very similar to your mother's room where she worked restlessly. She did
+everything she could to make you happy even with the absence of dad. Tears slide down your face. You
+miss her. You know now isn't the time to cry. You quickly rub it off your face and look around the room.""",
                    fg="white", bg="gray")
         d3.place(x=65, y=20)
 
@@ -413,8 +428,44 @@ def room305():
 
         box.place(x=50, y=10)
 
-        d3 = Label(tk, font=("times", 12),
-                   text="""You enter room 305.;;;;;;;;;;;;;;;;;;;;;;;;""",
+        d3 = Label(tk, font=("times", 12), text="""This room seems oddly familiar. You think for a while, but nothing specific comes to your mind.""", fg="white", bg="gray")
+        d3.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d3, hidetext), room305interact()])
+        hidetext.place(x=640, y=120)
+
+    else:
+        room305interact()
+
+
+def room305interact():
+    global check
+
+    canvas.bind("<Key>", hint3)
+
+    outtohall = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(sroomsectop, outtohall, check), hall2go()])
+    outtohall.place(x=680, y=490)
+
+    check = Button(tk, text="Check", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [outtohall.place_forget(), check.place_forget(), pincheck()])
+    check.place(x=370, y=450)
+
+
+def pincheck():
+    global p1
+    global item
+
+    canvas.bind("<Key>", test)
+
+    if p1 == 0:
+        p1 = p1 + 1
+
+        item.append("pin")
+
+        box.place(x=50, y=10)
+
+        d3 = Label(tk, font=("times", 12), text="""You look under the bed and see something reflecting light. You reach out and drag it towards you. A pink hair
+pin comes out. It has a cute cat's face on it, indicating that it may have been used by a little girl. You put it in
+your pocket in case you need it later.""",
                    fg="white", bg="gray")
         d3.place(x=65, y=20)
 
@@ -423,14 +474,16 @@ def room305():
         hidetext.place(x=640, y=120)
 
     else:
-        room305interact()
+        box.place(x=50, y=10)
 
+        d3 = Label(tk, font=("times", 12),
+                   text="""It's really dark. You don't notice anything special.""",
+                   fg="white", bg="gray")
+        d3.place(x=65, y=20)
 
-def room305interact():
-    canvas.bind("<Key>", hint3)
-
-    outtohall = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [sroomsectop.place_forget(), outtohall.place_forget(), hall2go()])
-    outtohall.place(x=680, y=490)
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12),
+                          command=lambda: [delete(box, d3, hidetext), room305interact()])
+        hidetext.place(x=640, y=120)
 
 
 def hall3():
@@ -444,7 +497,8 @@ def hall3():
         time.sleep(0.7)
 
         box.place(x=50, y=10)
-        d1 = Label(tk, font=("times", 12), text="""Next floor greets you with a fairly bright sunlight shining into the hallway.""", fg="white", bg="gray")
+        d1 = Label(tk, font=("times", 12), text="""Next floor greets you with a fairly bright sunlight shining into the hallway. The creepy mood doesn't go away.
+        You proceed to search for the exit. The air is getting colder around you.""", fg="white", bg="gray")
         d1.place(x=65, y=20)
 
         hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d1, hidetext), hall3go()])
@@ -485,7 +539,9 @@ def room201():
         box.place(x=50, y=10)
 
         d3 = Label(tk, font=("times", 12),
-                   text="""You enter room 201.mmmmmmmmmmmm""",
+                   text="""You enter room 201 and get greeted by a cozy room with a grand piano shockingly similar to your dad's old
+one. You suddenly feel anger rise up. You remember that your dad left all of a sudden and abandoned the family.
+You know anger isn't going to solve anything. You make yourself relaxed and continue exploring.""",
                    fg="white", bg="gray")
         d3.place(x=65, y=20)
 
@@ -519,7 +575,7 @@ def room202():
         box.place(x=50, y=10)
 
         d3 = Label(tk, font=("times", 12),
-                   text="""You enter room 202.sssssssssssssssss""",
+                   text="""You enter room 202. The faint scent of medicine fills the room. It's oddly familiar to you, but you aren't sure why.""",
                    fg="white", bg="gray")
         d3.place(x=65, y=20)
 
@@ -532,18 +588,22 @@ def room202():
 
 
 def room202interact():
+    global check1
+
     canvas.bind("<Key>", hint5)
 
-    outtohall = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(sroomsec, outtohall, check), hall3go()])
+    outtohall = Button(tk, text="Leave", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(sroomsec, outtohall, check1), hall3go()])
     outtohall.place(x=680, y=490)
 
-    check = Button(tk, text="Check", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [outtohall.place_forget(), check.place_forget(), keycheck()])
-    check.place(x=690, y=300)
+    check1 = Button(tk, text="Check", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [outtohall.place_forget(), check1.place_forget(), keycheck()])
+    check1.place(x=690, y=300)
 
 
 def keycheck():
     global p
     global item
+
+    canvas.bind("<Key>", test)
 
     if p == 0:
         p = p + 1
@@ -630,7 +690,250 @@ def playnoteb():
 
 
 def lobby():
+    global pop2
+    global p2
     lobbyimg.place(x=0, y=0)
+
+    if pop2 == 0:
+        pop2 = pop2 + 1
+
+        tk.update()
+        time.sleep(0.7)
+
+        box.place(x=50, y=10)
+        d1 = Label(tk, font=("times", 12), text="""You notice the door on the far end and realize you are finally at the bottom floor. It excites you but makes you
+    wonder what this was all about.""", fg="white", bg="gray")
+        d1.place(x=65, y=20)
+
+        hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d1, hidetext), lobby1()])
+        hidetext.place(x=640, y=120)
+
+    elif p2 > 0:
+        lobby3()
+
+    else:
+        lobby1()
+
+
+def lobby1():
+    exitout = Button(tk, text="Exit", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [exitout.place_forget(), up.place_forget(), lobby2()])
+    exitout.place(x=115, y=280)
+
+    up = Button(tk, text="Go upstairs", fg="white", bg="gray", font=("courier", 12), command=lambda: [delete(lobbyimg, exitout, up), hall3go()])
+    up.place(x=360, y=550)
+
+
+def lobby2():
+    box.place(x=50, y=10)
+    d1 = Label(tk, font=("times", 12), text="""You make your way to the door. You slowly grab the door handle and turn it. Click. It's locked. With no
+time to react, a girl figure drops flat beside you. Blood splats everywhere. It looks like a little girl, but the face
+is bursted open with internal parts dripping all around her. Its skirt turns red. It disgusts you more than it
+terrifies you. The horrifying 5 feet tall mysterious thing reaches its arm out suddenly and tightly grabs your arm.
+Its nails penetrate deep into your arms. With severe pain, you manage to run away to the other end of the lobby.""", fg="white", bg="gray")
+    d1.place(x=65, y=20)
+
+    hidetext = Button(tk, text="Hide", fg="black", bg="white", font=("comicsans", 12), command=lambda: [delete(box, d1, hidetext), lobby3()])
+    hidetext.place(x=640, y=120)
+
+
+def lobby3():
+    global item
+
+    if "pin" in item:
+        lockpick = Button(tk, text="Lock pick", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(lobbyimg, flee, lockpick), lobby4()])
+        lockpick.place(x=100, y=280)
+
+        flee = Button(tk, text="Flee", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [delete(lobbyimg, flee, lockpick), add(), hall3go()])
+        flee.place(x=700, y=500)
+
+    else:
+        flee = Button(tk, text="Flee", fg="white", bg="gray", font=("comicsans", 12), command=lambda: [lobbyimg.place_forget(), flee.place_forget(), add(), hall3go()])
+        flee.place(x=700, y=500)
+
+
+def add():
+    global p2
+
+    p2 = p2 + 1
+
+
+def lobby4():
+    lobbydoor.place(x=0, y=0)
+
+    box.place(x=50, y=10)
+    d1 = Label(tk, font=("times", 12), text="""With the hair pin you acquired from earlier, you pick the lock on the door as quickly as you can. Before you can
+finish, someone gently grabs your hand and stops you from picking the lock. It's the girl with the bloody face.
+You freak out and fall over. Luckily, her attention is all on the pink hair pin you are holding. She stops
+moving and continues to stare at the pin. You cautiously hand over the pin while shaking from fear. She rapidly
+takes the pin. She holds it tightly, turns around and walks away. You stand up, still shaking.""",
+               fg="white", bg="gray")
+    d1.place(x=65, y=20)
+
+    hidetext = Button(tk, text="Next", fg="black", bg="white", font=("comicsans", 12),
+                      command=lambda: [delete(box, d1, hidetext), lobby5()])
+    hidetext.place(x=640, y=120)
+
+
+def lobby5():
+    box.place(x=50, y=10)
+    d1 = Label(tk, font=("times", 12), text="""Click. The door suddenly unlocks itself. You carefully turn the doorknob and it opens.""",
+               fg="white", bg="gray")
+    d1.place(x=65, y=20)
+
+    hidetext = Button(tk, text="Next", fg="black", bg="white", font=("comicsans", 12),
+                      command=lambda: [delete(box, d1, hidetext), hintend()])
+    hidetext.place(x=640, y=120)
+
+
+def hintend():
+    global inventory
+
+    leng = len(inventory)
+
+    if leng < 3:
+        end1()
+
+    else:
+        end2()
+
+
+def end1():
+    void.place(x=0, y=0)
+
+    box.place(x=50, y=10 + 400)
+    d1 = Label(tk, font=("times", 20), text=".", fg="white", bg="gray")
+    d1.place(x=65, y=20 + 400)
+
+    tk.update()
+    time.sleep(0.4)
+
+    box.place(x=50, y=10 + 400)
+    d2 = Label(tk, font=("times", 20), text=".", fg="white", bg="gray")
+    d2.place(x=65 + 10, y=20 + 400)
+
+    tk.update()
+    time.sleep(0.4)
+
+    box.place(x=50, y=10 + 400)
+    d3 = Label(tk, font=("times", 20), text=".", fg="white", bg="gray")
+    d3.place(x=65 + 20, y=20 + 400)
+
+    hidetext = Button(tk, text="Next", fg="black", bg="white", font=("comicsans", 12),
+                      command=lambda: [delete(box, d1, hidetext), d2.place_forget(), d3.place_forget(), end1c()])
+    hidetext.place(x=640, y=120 + 400)
+
+
+def end1c():
+    hell.place(x=0, y=0)
+
+    box.place(x=50, y=10 + 400)
+    d1 = Label(tk, font=("times", 12),
+               text="Your surroundings ignite with flame all of a sudden. A grim reaper appears in front of you.", fg="white", bg="gray")
+    d1.place(x=65, y=20 + 400)
+
+    hidetext = Button(tk, text="Next", fg="black", bg="white", font=("comicsans", 12),
+                      command=lambda: [delete(box, d1, hidetext), end1cc()])
+    hidetext.place(x=640, y=120 + 400)
+
+
+def end1cc():
+    box.place(x=50, y=10 + 400)
+    d1 = Label(tk, font=("times", 12),
+               text=""" "You are dead Ling. Everything you saw up until now were the partial memories of yours that were forgotten.
+You will be reborn as your father and feel his life yourself." """, fg="white", bg="gray")
+    d1.place(x=65, y=20 + 400)
+
+    hidetext = Button(tk, text="End", fg="black", bg="white", font=("comicsans", 12),
+                      command=lambda: [delete(box, d1, hidetext), hell.place_forget(), credits()])
+    hidetext.place(x=640, y=120 + 400)
+
+
+def end2():
+    box.place(x=50, y=10)
+    d1 = Label(tk, font=("times", 12),
+               text="""Just as you're about to open the door, someone grabs your arm from behind. You freak out and immediately
+turn around. In front of you is your sister. The sister that was long gone and forgotten. You recognize
+the bloody skirt and realize it was her that fell from upstairs. You can see her proper face. The wounds
+are fully recovered. You feel a sharp pain in your head. You remember. You remember the accident. When
+you were 7, you accidentally pushed your sister off from the top floor of the building you are in right
+now. It happened when you followed your dad to his construction work site.""",
+               fg="white", bg="gray")
+    d1.place(x=65, y=20)
+
+    hidetext = Button(tk, text="Next", fg="black", bg="white", font=("comicsans", 12),
+                      command=lambda: [delete(box, d1, hidetext), end2c()])
+    hidetext.place(x=640, y=120)
+
+
+def end2c():
+    box.place(x=50, y=10)
+    d1 = Label(tk, font=("times", 12),
+               text="""Tears don't stop sliding down your face. Her face is covered with her tears, too. "Sorry." You say with a
+shaking voice. You don't know what to say except... 'sorry'. She gently shakes her head side to side. "It's ok."
+It's definitely your sister. The kind innocent girl who was fine with anything you did. You feel so guilty.
+All sorts of feelings overwhelm you including anger, sadness and guilt. Before you break down and drown in
+sorrow, your sister holds your hand gently and starts to pull you. "Follow me" she says.""",
+               fg="white", bg="gray")
+    d1.place(x=65, y=20)
+
+    hidetext = Button(tk, text="Continue", fg="black", bg="white", font=("comicsans", 12),
+                      command=lambda: [delete(box, d1, hidetext), end2cc()])
+    hidetext.place(x=640, y=120)
+
+
+def end2cc():
+    monitor.place(x=0, y=0)
+
+    box.place(x=50, y=10)
+    d1 = Label(tk, font=("times", 12),
+               text="""You enter a room with bunch of monitors on a table. "Ling, this is the place where you can see all the truth and
+watch our parents' life." You look around amazed with some tears still left on your face. On the screen directly
+in front of you, you can see your mother crying in the funeral. You realize it's your funeral. You try to stop
+yourself from crying. It is too late. You cannot stop crying and you fall to your knees. "I have been supporting
+you from here all along. Now is our turn to support our parents." Your sister helps you up.""",
+               fg="white", bg="gray")
+    d1.place(x=65, y=20)
+
+    hidetext = Button(tk, text="Next", fg="black", bg="white", font=("comicsans", 12),
+                      command=lambda: [delete(box, d1, hidetext), end2ccc()])
+    hidetext.place(x=640, y=120)
+
+
+def end2ccc():
+    monitor.place(x=0, y=0)
+
+    box.place(x=50, y=10)
+    d1 = Label(tk, font=("times", 12),
+               text=""" "I missed you. We have a lot to talk about." """,
+               fg="white", bg="gray")
+    d1.place(x=65, y=20)
+
+    hidetext = Button(tk, text="End", fg="black", bg="white", font=("comicsans", 12),
+                      command=lambda: [delete(box, d1, hidetext), monitor.place_forget(), credits()])
+    hidetext.place(x=640, y=120)
+
+
+def credits():
+    void.place(x=0, y=0)
+
+    end = Label(tk, font=("times", 25), text="The End", fg="white", bg="black")
+    end.place(x=350, y=300)
+
+    tk.update()
+    time.sleep(1)
+
+    developer = Label(tk, font=("times", 25), text="Developers: Shinwoo & Edward", fg="white", bg="black")
+    developer.place(x=210, y=400)
+
+    for x in range(0, 250):
+        tk.update()
+        time.sleep(0.05)
+
+        end.place_forget()
+        end.place(x=350, y=300 - x)
+
+        developer.place_forget()
+        developer.place(x=210, y=400 - x)
 
 
 tk = Tk()
@@ -668,11 +971,23 @@ roomsec = Label(tk, image=roomsec1)
 sroomsec1 = PhotoImage(file="room4.gif")
 sroomsec = Label(tk, image=sroomsec1)
 
-lobby1 = PhotoImage(file="")
-lobbyimg = Label(tk, image=lobby1)
+lobbyimg1 = PhotoImage(file="lobby.gif")
+lobbyimg = Label(tk, image=lobbyimg1)
 
 pino1 = PhotoImage(file="piano.gif")
 pino = Label(tk, image=pino1)
+
+lobbydoor1 = PhotoImage(file="dour.gif")
+lobbydoor = Label(tk, image=lobbydoor1)
+
+void1 = PhotoImage(file="leblack.gif")
+void = Label(tk, image=void1)
+
+hell1 = PhotoImage(file="reaper.gif")
+hell = Label(tk, image=hell1)
+
+monitor1 = PhotoImage(file="monitor.gif")
+monitor = Label(tk, image=monitor1)
 
 box1 = PhotoImage(file="textbox.gif")
 box = Label(tk, image=box1)
@@ -681,10 +996,19 @@ bbox1 = PhotoImage(file="black.gif")
 bbox = Label(tk, image=bbox1)
 
 shoe1 = PhotoImage(file="shoe.gif")
-shoe = Label(tk, image=shoe1)
+shoe = Label(tk, image=shoe1, bg="black")
 
 mlet1 = PhotoImage(file="mumletter.gif")
 mlet = Label(tk, image=mlet1)
+
+dlet1 = PhotoImage(file="dadletter.gif")
+dlet = Label(tk, image=dlet1)
+
+bill1 = PhotoImage(file="bill.gif")
+bill = Label(tk, image=bill1)
+
+cuff1 = PhotoImage(file="handcuff.gif")
+cuff = Label(tk, image=cuff1, bg="black")
 
 canvas.focus_set()
 
@@ -708,7 +1032,6 @@ instructionbox1 = PhotoImage(file="yellow.gif")
 instructionbox = Label(tk, image=instructionbox1)
 
 canvas.bind("<Key>", test)
-
 
 canvas.pack()
 tk.mainloop()
